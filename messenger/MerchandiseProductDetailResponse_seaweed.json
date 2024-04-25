@@ -1,0 +1,85 @@
+{
+    "info" : {
+        "title" : "Activity Product Detail response",
+        "version" : "0.1.0"
+    },
+    "end_customer_wallet" : "2qa7tak7x342atlktum3v3s6634hnq20lh526kq",
+    "external_session_id" : "23456",
+    "success" : "true",
+    "merchandise_product_detail_response" : {
+        "supplier_code" : "seagrass 5",
+        "short_description" : "short description",
+        "location" : {
+            "country" : "Spain",
+            "region" : "Mallorca",
+            "city_resort" : "Formentor",
+            "merchandise" : {
+                "supplier_code" : "seagrass 5",
+                "max_confirmation_time" : "1 year",
+                "allowFreesale" : true,
+                "instantConfirmation" : true,
+                "instantDelivery" : true,
+                "availabilityRequired" : false,
+                "deliveryMethods" : [
+                    "DIGITAL_ASSET"
+                ]
+            },
+            "descriptions" : {
+                "short_description" : "Restore Seagrass and Algae in Spain, Restore 5 square feet",
+                "descriptive_text" : "Restore Seagrass and Algae in Spain. With your support - we work with the MedGardens project of The Cleanwave Foundation to holistically restore the seagrass and macroalgae ecosystems surrounding the well-known tourist destination of Mallorca, in the Balearic Islands of Spain. Years of disruption caused by boat traffic and less than adequate boating guidelines have led to the destruction of these critical ecosystems, and with your support, we can bring them back and help them thrive for years to come. Each sq-ft of seagrass and algae you donate to restore contributes to the holistic restoration of this entire marine ecosystem, including:  planting of seagrassgrowing macroalgae removing marine debris educating the local community and local boat captains supporting local volunteer activations conservation signage in tourist areas monitoring and maintenance of restored seagrass meadows Tax Deductible: SeaTrees is a program of 501c3 non-profit Sustainable Surf - meaning that Planting and Restoring SeaTrees is tax-deductible in the USA. Keep your donation receipt."
+            },
+            "position" : {
+                "longitude" : "39.926297",
+                "latitude" : "3.136488"
+            },
+            "contact_info" : {
+                "address" : {
+                    "address_line" : "Calle Sant Joan 38",
+                    "address_line2" : "Quarter La Vileta",
+                    "city_name" : "Santa Maria del Camí",
+                    "postal_code" : "07008",
+                    "country" : "Spain",
+                    "region" : "Mallorca",
+                    "state_prov" : "Islas Baleares",
+                    "country_code" : "ES"
+                },
+                "emails" : [
+                    {
+                        "email" : "hello@medgardens.org"
+                    }
+                ],
+                "urls" : [
+                    {
+                        "type" : "Web",
+                        "address" : "www.seatrees.org"
+                    }
+                ]
+            },
+            "merchandise_images" : [
+                {
+                    "image_id" : "1",
+                    "short description" : "Restore seagrass",
+                    "width" : "540",
+                    "height" : "540",
+                    "name" : "Screenshot2024-02-22at9.57.31AM_540x.png",
+                    "url" : "https://seatrees.org/cdn/shop/files/Screenshot2024-02-22at9.57.31AM_540x.png?v=1708624667",
+                    "last_modified_date_time" : "2023-09-11T11:09:23"
+                }
+            ],
+            "merchandise_videos" : [
+                {
+                    "video_id" : "1",
+                    "short description" : "The beauty below",
+                    "resolution" : "720p",
+                    "framerate" : "24fps",
+                    "bitrate" : "400Kbps",
+                    "codec" : "H.264",
+                    "aspect_ratio" : "16:9",
+                    "container_format" : "MP4",
+                    "url" : "https://www.youtube.com/watch?v=0b56aTdssXk&embeds_referring_euri=https%3A%2F%2Fseatrees.org%2F&source_ve_path=Mjg2NjIsMjM4NTE&feature=emb_title",
+                    "last_modified_date_time" : "2023-09-11T11:09:23"
+                }
+            ]
+        }
+    }
+}

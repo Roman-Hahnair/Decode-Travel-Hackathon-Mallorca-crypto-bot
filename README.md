@@ -58,6 +58,9 @@ The bot mints an NFT as a reward:
 The user can see the NFT in the wallet:
 ![Screenshot 11](/media/bot_screenshots/11.png)
 
+# Architecture
+
+![Screenshot 0](/media/architecture.jpg)
 
 # How to deploy:
 
