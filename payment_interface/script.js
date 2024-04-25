@@ -54,10 +54,12 @@ async function launchMetaMask() {
         console.log('Transaction successful: ', txHash);
         // Navigate back to the app after a successful transaction
         linkBackToApp() 
-            window.location.href = 'https://t.me/mallorca_beaches_bot?account='+userAccount;
+            window.location.href = 'https://t.me/mallorca_beaches_bot?start='+userAccount;
         
     } catch (error) {
         console.error('Transaction failed: ', error);
+        linkBackToApp()
+            window.location.href = 'https://t.me/mallorca_beaches_bot?start='+error;
     }
     }
     function linkBackToApp() {

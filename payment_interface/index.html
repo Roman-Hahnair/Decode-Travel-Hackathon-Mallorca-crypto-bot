@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Payment Interface</title>
+    <title>Decode Travel Payments</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
 </head>
 <body>
-    <div class="payment-form">
-        <h2>Payment Details</h2>
+    <div class="container">
+        <div class="payment-form">
+            <h1>Decode Travel Payments</h1>
+            <h2>Payment Details</h2>
 
-        <div id="payment-amount">Amount Due: €12</div>  <!-- Payment amount display -->
+            <div id="payment-amount">Amount Due: €30</div>  <!-- Payment amount display -->
 
-        <label for="name">Name (as appearing on card)</label>
-        <input type="text" id="name" name="name">
+            <label for="name">Name (as appearing on card)</label>
+            <input type="text" id="name" name="name">
 
-        <label for="card-number">Card Number</label>
-        <input type="text" id="card-number" name="card-number">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" name="card-number">
 
-        <label for="due-date">Due Date</label>
-        <input type="text" id="due-date" name="due-date">
+            <label for="due-date">Due Date</label>
+            <input type="text" id="due-date" name="due-date">
 
-        <label for="cvc">CVC</label>
-        <input type="text" id="cvc" name="cvc">
+            <label for="cvc">CVC</label>
+            <input type="text" id="cvc" name="cvc">
 
-        <button onclick="launchMetaMask()">Paying with Crypto</button>
+            <button onclick="launchMetaMask()" style="font-weight: bold; font-size: 18px;">Pay with CAM</button>
 
-
-        <button onclick="linkBackToApp()">Pay</button>
+            <button onclick="linkBackToApp()" style="font-weight: bold; font-size: 18px;">Pay</button>
+        </div>
     </div>
     
     <script src="script.js"></script>
