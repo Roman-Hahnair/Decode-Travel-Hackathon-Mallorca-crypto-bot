@@ -93,17 +93,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             await handle_number_guess(update, user.id, args[0])
         elif is_valid_ethereum_address(args_zero):
             await minting_route(update, args_zero)
-        else:
-            keyboard = [
-                [InlineKeyboardButton("Start the Game", callback_data="start_game")]
-            ]
-            reply_markup = InlineKeyboardMarkup(keyboard)
-            welcome_message = f"Hello {user.first_name}, I am your bot! Click the button below to start the game."
-            await context.bot.send_message(
-                chat_id=update.effective_chat.id,
-                text=welcome_message,
-                reply_markup=reply_markup,
-            )
+    else:
+        keyboard = [
+            [InlineKeyboardButton("Start the Game", callback_data="start_game")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        welcome_message = f"Hello {user.first_name}, I am your bot! Click the button below to start the game."
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=welcome_message,
+            reply_markup=reply_markup,
+        )
 
 
 async def start_new_game(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

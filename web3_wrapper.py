@@ -11,7 +11,10 @@ contract_address = "0x252d1735ccc7E14F0DBA89162487f0EeB1A170ec"
 private_key = os.getenv("CRYPTO_PRIVATE_KEY")
 
 # sample_image_url = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-BPqH6tWWgHOUicO8Wwjqvukg/user-7eSJt0pSU95AQ0mS2VKwDATk/img-L1sVCvwD0RTVWr70EbnJBjFW.png?st=2024-04-24T15%3A11%3A11Z&se=2024-04-24T17%3A11%3A11Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-04-24T14%3A53%3A27Z&ske=2024-04-25T14%3A53%3A27Z&sks=b&skv=2021-08-06&sig=0yc78zgl2jNyyCFJZnPMv159NpuE2fD/pc3a1xjgrkQ%3D"
-sample_image_url = "ipfs/QmehXwcBKsHZoS8AUK6d1RxQnvvwrysLoX1oAkayeSzXyJ/4.webp"
+# sample_image_url = "ipfs/QmehXwcBKsHZoS8AUK6d1RxQnvvwrysLoX1oAkayeSzXyJ/4.webp"
+sample_image_url = "https://bafybeihtcsetzi3d66vab36jahpj2t6iq4takhyn74w636klkgxp4etwce.ipfs.dweb.link/1.webp"
+
+#sample_image_url = "https://images.unsplash.com/photo-1606144449305-a8e94f61d1d3?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 
 client_url = "https://columbus.camino.network/ext/bc/C/rpc"
 

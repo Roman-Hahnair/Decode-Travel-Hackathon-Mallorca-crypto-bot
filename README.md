@@ -10,13 +10,54 @@ The project combines several cool things:
 - blockchain and NFTs
 - gamification for a good cause
 
-It is a simple:
+It works like this:
 - There is a chatbot-based simple game with a real-life component
 - The user walks on the beaches of Mallorca and sometimes finds our secret objects with NFCs
 - The user scans an unique NFC and recieves a link to our telegram bot, which keeps the count of the unique objects found
 - After the user collected a certain amount of objects, they got a special reward: the bot creates an unique pixel art image according to their description
 - The user then asked to contribute to the ecology restoration project
 - If the user agrees, they get a unique NFT with the image they generated.
+
+# Screenshots
+
+Below are the screenshots of the workflow:
+
+The bot greats the user:
+![Screenshot 0](/media/bot_screenshots/0.png)
+
+The game starts:
+![Screenshot 1](/media/bot_screenshots/1.png)
+
+The user has located the first secret code (e.g. by scanning the plaque with the NFC tag or by entering the code manually):
+![Screenshot 2](/media/bot_screenshots/2.png)
+
+The user entered another secret code. As the user has collected enough codes, the bot provides a reward: it asks the user to describe the image they want to generate:
+![Screenshot 3](/media/bot_screenshots/3.png)
+
+The user wants an image of a funny puppy:
+![Screenshot 4](/media/bot_screenshots/4.png)
+
+The bot generates a cool pixel art pictue with the help of OpenAI's DALL-E:
+![Screenshot 5](/media/bot_screenshots/5.png)
+
+The bot asks the user to contribute to the ecology restoration project:
+![Screenshot 6](/media/bot_screenshots/6.png)
+
+A payment website opens:
+![Screenshot 7](/media/bot_screenshots/7.png)
+
+The user pays with the help of MetaMask:
+![Screenshot 8](/media/bot_screenshots/8.png)
+
+After the payment, the user is redirected back to the bot, with his public key in the deep link data:
+![Screenshot 9](/media/bot_screenshots/9.png)
+
+The bot mints an NFT as a reward:
+![Screenshot 10](/media/bot_screenshots/10.png)
+
+The user can see the NFT in the wallet:
+![Screenshot 11](/media/bot_screenshots/11.png)
+
 
 # How to deploy:
 
