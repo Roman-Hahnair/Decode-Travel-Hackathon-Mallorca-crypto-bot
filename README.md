@@ -2,13 +2,7 @@
 
 This a fun project for the [Decode Travel Hackathon](https://decode.travel/) and the Mallorca undersea ecology restoration project. 
 
-The project combines several cool things:
-
-- chatbots and text-based interfaces
-- generative AI
-- physical NFCs
-- blockchain and NFTs
-- gamification for a good cause
+# High-level explanation of project functionality
 
 It works like this:
 - There is a chatbot-based simple game with a real-life component
@@ -16,7 +10,32 @@ It works like this:
 - The user scans an unique NFC and recieves a link to our telegram bot, which keeps the count of the unique objects found
 - After the user collected a certain amount of objects, they got a special reward: the bot creates an unique pixel art image according to their description
 - The user then asked to contribute to the ecology restoration project
-- If the user agrees, they get a unique NFT with the image they generated.
+- If the user agrees, the bot mints a unique NFT with the image they generated.
+
+See the workflow in the screenshots below.
+
+# Tech overview of codebase
+
+The project combines several cool things:
+
+- chatbots and text-based interfaces 
+- generative AI
+- physical NFCs
+- blockchain and NFTs
+- gamification for a good cause.
+
+The codebase is written mostly in Python.
+
+for the interface, we've build a bot in the popular messenger Telegram. The bot is built with the help of the python-telegram-bot library.
+
+For the generative AI, we've used OpenAI's DALL-E model. The model is called via the OpenAI API.
+
+The bot is able to mint NFTs with the help of the web3.py library.
+
+# Architecture
+
+![Screenshot 0](/media/architecture.jpg)
+
 
 # Screenshots
 
@@ -58,9 +77,6 @@ The bot mints an NFT as a reward:
 The user can see the NFT in the wallet:
 ![Screenshot 11](/media/bot_screenshots/11.png)
 
-# Architecture
-
-![Screenshot 0](/media/architecture.jpg)
 
 # How to deploy:
 
