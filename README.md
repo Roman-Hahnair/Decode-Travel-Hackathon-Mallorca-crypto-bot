@@ -20,6 +20,7 @@ pip install -r requirements.txt
 ```
 echo "export TELEGRAM_BOT_TOKEN='<your_token>'" >> ~/.bashrc
 
-Same for OpenAI API.
+echo "export OPENAI_API_KEY='<your_token>'" >> ~/.bashrc
 
+source ~/.bashrc
 ```
