@@ -31,11 +31,7 @@ contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
 def main():
     try:
-        #private_key = os.getenv('CRYPTO_PRIVATE_KEY')
-        private_key = 'ecc990020d0335a28d0d0844e38eaedc9ec72d74965bb78634d3fc1797ea530f'
-        #account = web3.eth.account.privateKeyToAccount(private_key)
         
-
         account = web3.eth.account.from_key(private_key)
         public_address = account.address
         fromAddr = Web3.to_checksum_address(public_address)
