@@ -1,0 +1,33 @@
+{
+    "info" : {
+        "title" : "Activity Product Detail response",
+        "version" : "0.1.0"
+    },
+    "end_customer_wallet" : "2qa7tak7x342atlktum3v3s6634hnq20lh526kq",
+    "merchandise_product_list_response" : {
+        "external_session_id" : "23456",
+        "success" : "true"
+    },
+    "merchandise" : [
+        {
+            "supplier_code" : "seagrass 5",
+            "short_description" : "Restore Seagrass and Algae in Spain, Restore 5 square feet"
+        },
+        {
+            "supplier_code" : "seagrass 10",
+            "short_description" : "short description"
+        },
+        {
+            "supplier_code" : "seagrass 20",
+            "short_description" : "short description"
+        },
+        {
+            "supplier_code" : "seagrass 50",
+            "short_description" : "short description"
+        },
+        {
+            "supplier_code" : "seagrass 100",
+            "short_description" : "short description"
+        }
+    ]
+}

@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+message SomeMessage {
+
+    message Info {
+        string title = 1;
+        string version = 2;
+    }
+
+    message Merchandise {
+        string supplier_code = 1;
+        string max_confirmation_time = 2;
+        bool allowFreesale = 3;
+        bool instantConfirmation = 4;
+        bool instantDelivery = 5;
+        bool availabilityRequired = 6;
+        repeated string deliveryMethods = 7;
+    }
+
+    message Descriptions {
+        string short_description = 1;
+        string descriptive_text = 2;
+    }
+
+    message Position {
+        string longitude = 1;
+        string latitude = 2;
+    }
+
+    message Address {
+        string address_line = 1;
+        string address_line2 = 2;
+        string city_name = 3;
+        string postal_code = 4;
+        string country = 5;
+        string region = 6;
+        string state_prov = 7;
+        string country_code = 8;
+    }
+
+    message Emails {
+        string email = 1;
+    }
+
+    message Urls {
+        string type = 1;
+        string address = 2;
+    }
+
+    message Contact_info {
+        Address address = 1;
+        repeated Emails emails = 2;
+        repeated Urls urls = 3;
+    }
+
+    message Merchandise_images {
+        string image_id = 1;
+        string short description = 2;
+        string width = 3;
+        string height = 4;
+        string name = 5;
+        string url = 6;
+        string last_modified_date_time = 7;
+    }
+
+    message Merchandise_videos {
+        string video_id = 1;
+        string short description = 2;
+        string resolution = 3;
+        string framerate = 4;
+        string bitrate = 5;
+        string codec = 6;
+        string aspect_ratio = 7;
+        string container_format = 8;
+        string url = 9;
+        string last_modified_date_time = 10;
+    }
+
+    message Location {
+        string country = 1;
+        string region = 2;
+        string city_resort = 3;
+        Merchandise merchandise = 4;
+        Descriptions descriptions = 5;
+        Position position = 6;
+        Contact_info contact_info = 7;
+        repeated Merchandise_images merchandise_images = 8;
+        repeated Merchandise_videos merchandise_videos = 9;
+    }
+
+    message Merchandise_product_detail_response {
+        string supplier_code = 1;
+        string short_description = 2;
+        Location location = 3;
+    }
+
+    Info info = 1;
+    string end_customer_wallet = 2;
+    string external_session_id = 3;
+    string success = 4;
+    Merchandise_product_detail_response merchandise_product_detail_response = 5;
+}

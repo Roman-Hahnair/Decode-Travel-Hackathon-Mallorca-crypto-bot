@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+message SomeMessage {
+
+    message Info {
+        string title = 1;
+        string version = 2;
+    }
+
+    message Merchandise_product_list_response {
+        string external_session_id = 1;
+        string success = 2;
+    }
+
+    message Merchandise {
+        string supplier_code = 1;
+        string short_description = 2;
+    }
+
+    Info info = 1;
+    string end_customer_wallet = 2;
+    Merchandise_product_list_response merchandise_product_list_response = 3;
+    repeated Merchandise merchandise = 4;
+}
