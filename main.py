@@ -11,11 +11,11 @@ if not TOKEN:
 
 # Mapping secret numbers to locations and their image URLs
 SECRET_NUMBERS = {
-    '12345': ('Palma de Mallorca', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Rathaus_Palma_de_Mallorca_abends_%28Zuschnitt%29.jpg/320px-Rathaus_Palma_de_Mallorca_abends_%28Zuschnitt%29.jpg'),
-    '23456': ('Sóller', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Sant_Bartomeu%2C_S%C3%B3ller%2C_Mallorca.jpg/177px-Sant_Bartomeu%2C_S%C3%B3ller%2C_Mallorca.jpg'),
-    '34567': ('Valldemossa', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Chopin-Valldemossa-KStanowski.jpg/180px-Chopin-Valldemossa-KStanowski.jpg'),
-    '45678': ('Deià', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/EmbarcadorcalaDei%C3%A0.JPG/320px-EmbarcadorcalaDei%C3%A0.JPG'),
-    '56789': ('Alcúdia', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Alcudia_6745.jpg/320px-Alcudia_6745.jpg')
+    '12345': ('The cliffs of Santaní', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Mallorca_Santany%C3%AD_Es_Pont%C3%A0s.jpg/640px-Mallorca_Santany%C3%AD_Es_Pont%C3%A0s.jpg'),
+    '23456': ('The bay Caló des Moro ', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/004_2016_11_29_Menschen_im_Urlaub.jpg/574px-004_2016_11_29_Menschen_im_Urlaub.jpg'),
+    '34567': ('Cave on the east coast of Majorca', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/003_2014_03_15_Hoehlen_Bergwerke_und_Dolinen.jpg/640px-003_2014_03_15_Hoehlen_Bergwerke_und_Dolinen.jpg'),
+    '45678': ('The statue of the beach Na Ferradura', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Cala_Rajada_na_Ferradura_escultura_Joan_Benn%C3%A0ssar-1371.jpg/640px-Cala_Rajada_na_Ferradura_escultura_Joan_Benn%C3%A0ssar-1371.jpg'),
+    '56789': ('Cathedral of Palma de Mallorca', 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Consulado_del_Mar%2C_Palma_de_Mallorca%2C_Espa%C3%B1a%2C_2022-10-06%2C_DD_28-30_HDR.jpg/640px-Consulado_del_Mar%2C_Palma_de_Mallorca%2C_Espa%C3%B1a%2C_2022-10-06%2C_DD_28-30_HDR.jpg')
 }
 USER_SCORES = {}
 WINNERS = set()
@@ -24,16 +24,44 @@ AWAITING_DONATION_DETAILS = set()
 # GENERATED_IMAGE_URL = ""
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    args = context.args
     user = update.effective_user
+
+    if args and args[0] in SECRET_NUMBERS:
+        await handle_number_guess(update, user.id, args[0])
+    else:
+        keyboard = [[InlineKeyboardButton("Start the Game", callback_data='start_game')]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        welcome_message = f"Hello {user.first_name}, I am your bot! Click the button below to start the game."
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=welcome_message, reply_markup=reply_markup)
+
+    """"
     keyboard = [[InlineKeyboardButton("Start the Game", callback_data='start_game')]]
     reply_markup = InlineKeyboardMarkup(keyboard)
     welcome_message = f"Hello {user.first_name}, I am your bot! Click the button below to start the game."
     await context.bot.send_message(chat_id=update.effective_chat.id, text=welcome_message, reply_markup=reply_markup)
+    """
+    
+async def start_new_game(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    text = "Game started! Guess the secret 5-digit numbers associated with locations in Mallorca."
+    if update.message:
+        await update.message.reply_text(text)
+    else:
+        await update.callback_query.edit_message_text(text)
 
+
+"""
 async def start_game_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
     await query.edit_message_text(text="Game started! Guess the secret 5-digit numbers associated with locations in Mallorca.")
+"""
+
+async def start_game_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    query = update.callback_query
+    await query.answer()
+    await start_new_game(update, context)
+    
 
 async def handle_donation_details(update: Update, user_id: int, text: str) -> None:
     try:
@@ -57,6 +85,7 @@ async def handle_donation_details(update: Update, user_id: int, text: str) -> No
         await update.message.reply_text("Please enter two numbers: the area in square meters and the number of months.")
 
 async def handle_pixel_art_request(update: Update, user_id: int, text: str) -> None:
+    await update.message.reply_text("Got it. Generating pixel art... (takes about 10 sec)")
     object_to_paint = text
     GENERATED_IMAGE_URL = generate_and_save_pixel_art(object_to_paint)
     await update.message.reply_photo(photo=GENERATED_IMAGE_URL, caption="Here is your custom pixel art!")
@@ -69,6 +98,10 @@ async def handle_pixel_art_request(update: Update, user_id: int, text: str) -> N
 
 async def handle_number_guess(update: Update, user_id: int, text: str) -> None:
     if text in SECRET_NUMBERS:
+
+        if user_id not in USER_SCORES:
+            USER_SCORES[user_id] = 0
+
         USER_SCORES[user_id] += 1
         location, image_url = SECRET_NUMBERS[text]
         congratulations_message = f"Correct! You found our secret QR in {location}. Your score is now {USER_SCORES[user_id]}."
@@ -101,11 +134,37 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         if user_id not in WINNERS:
             await update.message.reply_text("Please enter a valid 5-digit number.")
 
+
+async def reset_score(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user_id = update.effective_user.id
+
+    # remove the user from the winners list
+    if user_id in WINNERS:
+        WINNERS.remove(user_id)
+
+    # remove the user from the awaiting image description list
+    if user_id in AWAITING_IMAGE_DESCRIPTION:
+        AWAITING_IMAGE_DESCRIPTION.remove(user_id)
+
+    # remove the user from the awaiting donation details list
+    if user_id in AWAITING_DONATION_DETAILS:
+        AWAITING_DONATION_DETAILS.remove(user_id)
+
+    if user_id in USER_SCORES:
+        USER_SCORES[user_id] = 0
+        await update.message.reply_text("Your score has been reset. Starting a new game...")
+    else:
+        await update.message.reply_text("You don't have a score to reset. Starting a new game...")
+
+    await start_new_game(update, context)
+
+
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(start_game_callback, pattern='^start_game$'))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(CommandHandler("reset", reset_score))
     app.run_polling()
 
 if __name__ == '__main__':

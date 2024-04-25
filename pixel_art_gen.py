@@ -18,7 +18,7 @@ def generate_image(object_to_paint):
     # Generate an image
     response = client.images.generate(
         model="dall-e-2", # can be 3
-        prompt=f"a 32x32 pixel art of a {object_to_paint}",
+        prompt=f"a detailed pixel art of a {object_to_paint} on a Mallorca beach",
         size="256x256",
         quality="standard",
         n=1,

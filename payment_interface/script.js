@@ -35,7 +35,7 @@ async function launchMetaMask() {
     } else {
         alert('Please install MetaMask!');
     }
-    const recipientAddress = '0xF9DB7E9F0E70D1fb52607f31865E5E5D810F2F69'; // Replace with the recipient's address
+    const recipientAddress = '0x8C9aAF3cBD98969c71D771e3DeF47c27F6750Da7'; // Smart contract for payment distribution
     const amountToSend = web3.utils.toWei('0.00000000001', 'ether'); // Set the amount to send
 
 
@@ -45,7 +45,7 @@ async function launchMetaMask() {
             to: recipientAddress,
             value: web3.utils.toHex(amountToSend),
             gasPrice: '200000000000', // Use appropriate gas price
-            gas: '21000', // Set appropriate gas limit
+            gas: '210000', // Set appropriate gas limit
         };
         console.log('Transaction to be executed: ');
 
