@@ -22,5 +22,7 @@ echo "export TELEGRAM_BOT_TOKEN='<your_token>'" >> ~/.bashrc
 
 echo "export OPENAI_API_KEY='<your_token>'" >> ~/.bashrc
 
+echo "export CRYPTO_PRIVATE_KEY='<your_token>'" >> ~/.bashrc
+
 source ~/.bashrc
 ```
