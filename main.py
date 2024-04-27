@@ -8,9 +8,14 @@ from telegram.ext import (
     filters,
     CallbackQueryHandler,
 )
-
 from pixel_art_gen import generate_and_save_pixel_art
 from web3_wrapper import is_valid_ethereum_address, mint_nft
+
+"""
+This is where we handle the Telegram bot logic. 
+Run this script to start the bot.
+"""
+
 
 # Retrieve token from environment variable
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -19,7 +24,13 @@ if not TOKEN:
         "No token provided. Set the TELEGRAM_BOT_TOKEN environment variable."
     )
 
-# Mapping secret numbers to locations and their image URLs
+"""
+These secret numbers are associated with locations in Mallorca, 
+which the user has to visit to find our NFC-powered QR plaques.
+Alternatively, the user can enter the number manually (should be on the plaque).
+If the user enters the correct number, the bot displays the location and an image
+as a confirmation.
+"""
 SECRET_NUMBERS = {
     "12345": (
         "The cliffs of Santaní",
@@ -46,10 +57,15 @@ USER_SCORES = {}
 WINNERS = set()
 AWAITING_IMAGE_DESCRIPTION = set()
 AWAITING_DONATION_DETAILS = set()
-# GENERATED_IMAGE_URL = ""
 
 
 async def minting_route(update, text):
+    """This function handles the minting of NFTs and the corresponding messages.
+
+    Args:
+        update (Update): The Telegram update object.
+        text (str): The text message from the user.
+    """
     success7, report = mint_nft(text)
 
     await update.message.reply_text(report)
@@ -64,24 +80,17 @@ async def minting_route(update, text):
         )
 
 
-"""
-async def account(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    args = context.args
-    # user = update.effective_user
-    print("In account function...")
-
-    if args:
-        address = str(args[0]).strip()
-        print(f"Got address from the command: {address}")
-        if is_valid_ethereum_address(address):
-            await update.message.reply_text(
-                f"Got a valid address from the payment page: {address} . Minting NFT..."
-            )
-            await minting_route(update, address)
-"""
-
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """The main handler function for the interaction with the bot.
+
+    It handles the user messages, obtaining args from deep linking,
+    and pretty much everything else except the reset command.
+
+    Args:
+        update (Update): The Telegram update object.
+        context (ContextTypes.DEFAULT_TYPE): The context object.   
+    
+    """
     print("In the start function...")
 
     args = context.args
@@ -117,12 +126,25 @@ async def start_new_game(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 async def start_game_callback(
     update: Update, context: ContextTypes.DEFAULT_TYPE
 ) -> None:
+    """A callback query handler that starts a new game when the user clicks the "Start game" button.
+
+    Args:
+        update (Update): The Telegram update object.
+        context (ContextTypes.DEFAULT_TYPE): The context object.
+    """
     query = update.callback_query
     await query.answer()
     await start_new_game(update, context)
 
 
 async def handle_donation_details(update: Update, user_id: int, text: str) -> None:
+    """Calculates the donation amount based on the user input and sends a message with how to make the donation.
+    
+    Args:
+        update (Update): The Telegram update object.
+        user_id (int): The user ID.
+        text (str): The user input text. The expected format is two numbers separated by a space.
+    """
     try:
         area, months = map(int, text.split())
         donation_amount = area * months * 1  # €1 per square meter per month
@@ -138,7 +160,7 @@ async def handle_donation_details(update: Update, user_id: int, text: str) -> No
         We will mint a unique NFT for you, with the cool image you just generated! Enter your Ethereum address to receive the NFT (for example, 0x6e339091198CdfbAfE5942e8d4198aC7F84b470e):
         """
         await update.message.reply_text(text)
-        # await update.message.reply_photo(photo=GENERATED_IMAGE_URL, caption=text)
+
 
     except ValueError:
         await update.message.reply_text(
@@ -147,6 +169,14 @@ async def handle_donation_details(update: Update, user_id: int, text: str) -> No
 
 
 async def handle_pixel_art_request(update: Update, user_id: int, text: str) -> None:
+    """Generates a pixel art image based on the user input and sends it to the user.
+
+    Args:
+        update (Update): The Telegram update object.
+        user_id (int): The user ID.
+        text (str): The user input text. The text can be anything. E.g. "funny puppy"
+    
+    """
     await update.message.reply_text(
         "Got it. Generating your unique pixel art... (takes about 10 sec)"
     )
@@ -163,6 +193,13 @@ async def handle_pixel_art_request(update: Update, user_id: int, text: str) -> N
 
 
 async def handle_number_guess(update: Update, user_id: int, text: str) -> None:
+    """Checks if the user input is a valid secret number and updates the user score.
+
+    Args:
+        update (Update): The Telegram update object.
+        user_id (int): The user ID.
+        text (str): The user input text. The expected format is a str of a 5-digit number.
+    """
     if text in SECRET_NUMBERS:
 
         if user_id not in USER_SCORES:
@@ -185,6 +222,12 @@ async def handle_number_guess(update: Update, user_id: int, text: str) -> None:
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Processes user messages during the conversation, according to the state of the user.
+    
+    Args:
+        update (Update): The Telegram update object.
+        context (ContextTypes.DEFAULT_TYPE): The context object.
+    """
     text = update.message.text
     user_id = update.effective_user.id
 
@@ -211,6 +254,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
 
 async def reset_score(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Resets the user score and starts a new game. Useful for testing.
+
+    Args:
+        update (Update): The Telegram update object.
+        context (ContextTypes.DEFAULT_TYPE): The context object.
+    """
     user_id = update.effective_user.id
 
     # remove the user from the winners list
@@ -241,7 +290,6 @@ async def reset_score(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
-    # app.add_handler(CommandHandler("account", account))
     app.add_handler(CallbackQueryHandler(start_game_callback, pattern="^start_game$"))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     app.add_handler(CommandHandler("reset", reset_score))

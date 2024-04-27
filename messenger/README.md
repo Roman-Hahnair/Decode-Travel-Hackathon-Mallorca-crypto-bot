@@ -1,0 +1,1 @@
+This dir contains protobuf definitions for the Camino messanger. 

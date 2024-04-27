@@ -2,7 +2,7 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware
 import os
 
-# Read the ABI from a file
+# Read the contract ABI from a file
 with open("contract_abi.json", "r") as file:
     abi_str = file.read()
 
@@ -10,11 +10,8 @@ contract_address = "0x252d1735ccc7E14F0DBA89162487f0EeB1A170ec"
 
 private_key = os.getenv("CRYPTO_PRIVATE_KEY")
 
-# sample_image_url = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-BPqH6tWWgHOUicO8Wwjqvukg/user-7eSJt0pSU95AQ0mS2VKwDATk/img-L1sVCvwD0RTVWr70EbnJBjFW.png?st=2024-04-24T15%3A11%3A11Z&se=2024-04-24T17%3A11%3A11Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-04-24T14%3A53%3A27Z&ske=2024-04-25T14%3A53%3A27Z&sks=b&skv=2021-08-06&sig=0yc78zgl2jNyyCFJZnPMv159NpuE2fD/pc3a1xjgrkQ%3D"
-# sample_image_url = "ipfs/QmehXwcBKsHZoS8AUK6d1RxQnvvwrysLoX1oAkayeSzXyJ/4.webp"
+# TODO: use the user-generated image for the NFT
 sample_image_url = "https://bafybeihtcsetzi3d66vab36jahpj2t6iq4takhyn74w636klkgxp4etwce.ipfs.dweb.link/1.webp"
-
-#sample_image_url = "https://images.unsplash.com/photo-1606144449305-a8e94f61d1d3?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 
 client_url = "https://columbus.camino.network/ext/bc/C/rpc"
 
@@ -23,7 +20,6 @@ web3 = Web3(Web3.HTTPProvider(client_url))
 web3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
 # Contract address and ABI
-# contract_address_cs = Web3.toChecksumAddress(contract_address)
 contract_address_cs = Web3.to_checksum_address(contract_address)
 
 
@@ -35,6 +31,7 @@ contract = web3.eth.contract(address=contract_address, abi=contract_abi)
 
 import re
 
+
 def is_valid_ethereum_address(address):
     """
     Checks if the given string is a valid Ethereum address.
@@ -42,7 +39,7 @@ def is_valid_ethereum_address(address):
     This function uses the re.fullmatch method to ensure the entire string matches the Ethereum address pattern. It checks:
 
     Whether the string starts with '0x'.
-    Followed by exactly 40 characters which must be hexadecimal (consisting of digits and letters from A to F, case insensitive).    
+    Followed by exactly 40 characters which must be hexadecimal (consisting of digits and letters from A to F, case insensitive).
 
     Args:
     address (str): The address to check.
@@ -68,16 +65,12 @@ def mint_nft(address_to):
     try:
         if private_key is None:
             report = update_report("ERROR! Private key is None...", report)
- 
 
         account = web3.eth.account.from_key(private_key)
         public_address = account.address
         fromAddr = Web3.to_checksum_address(public_address)
 
         address_to = Web3.to_checksum_address(address_to)
-        #address_to = (
-        #    "0x6e339091198CdfbAfE5942e8d4198aC7F84b470e"  ## TODO make it variable
-        #)
 
         dueTime = 1716624349
 
@@ -97,9 +90,7 @@ def mint_nft(address_to):
             sponsorshipLength,  # uint256 (sponsorshipLength)
             area,  # uint256 (area)
             dueTime,  # duedate
-        ).build_transaction(
-            {"from": fromAddr, "nonce": nonce, "chainId": 501}
-        )  # The account making the transaction
+        ).build_transaction({"from": fromAddr, "nonce": nonce, "chainId": 501})
 
         signed_tx = web3.eth.account.sign_transaction(tx_hash, private_key=private_key)
 
@@ -118,7 +109,6 @@ def mint_nft(address_to):
         success7 = True
 
     except Exception as e:
-        # print("An error occurred:", e)
         msg = "An error occurred: " + str(e)
         report = update_report(msg, report)
 

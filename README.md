@@ -32,6 +32,8 @@ For the generative AI, we've used OpenAI's DALL-E model. The model is called via
 
 The bot is able to mint NFTs with the help of the web3.py library.
 
+As a security measure, we don't store any API keys or private keys in the codebase. Instead, we use environment variables for that. 
+
 # Architecture
 
 ![Screenshot 0](/media/architecture.jpg)
