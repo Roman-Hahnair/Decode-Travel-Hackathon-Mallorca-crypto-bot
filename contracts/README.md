@@ -1,0 +1,1 @@
+This dir contains the smart contracts we use for the NFT mining and the payment distribution. 

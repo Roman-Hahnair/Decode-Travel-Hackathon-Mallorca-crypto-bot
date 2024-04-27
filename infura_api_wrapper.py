@@ -3,6 +3,10 @@ import json
 import os
 
 """
+Here we experimented with using the Infura API to work with the Avalanche.
+It works, seems one can delegate much of the low-level blockhain stuff to it. 
+Could be useful for other projects. 
+
 https://docs.infura.io/api/networks/avalanche-c-chain/quickstart
 """
 
